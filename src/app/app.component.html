@@ -1,0 +1,48 @@
+<div class="container">
+    <h1>
+        <nav><a routerLink="/home">{{titre}}</a></nav>
+    </h1>
+</div>
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <h4>ENT</h4>
+        <button mat-icon-button color="accent" (click)="opened=!opened"><mat-icon>menu</mat-icon></button>
+        <button mat-button color="accent" routerLink="/home"><mat-icon>home</mat-icon>Accueil</button>
+        <button mat-icon-button color="accent" class="right-icon"><mat-icon>person</mat-icon></button>
+        <div *ngIf="!isLogged()" style="display: flex">
+            <button mat-raised-button color="primary" (click)="login()">Connecter</button>
+        </div>
+        <div *ngIf="isLogged()">
+            <button mat-raised-button color="primary" (click)="login()">Déconnecter</button>
+        </div>
+    </mat-toolbar-row>
+</mat-toolbar>
+<mat-sidenav-container>
+    <mat-sidenav [(opened)]="opened" mode="side">
+        <mat-list>
+            <mat-list-item>
+                <button><mat-icon mat-list-icon>assignment</mat-icon><a routerLink="/home">Liste des
+                        devoirs</a></button>
+            </mat-list-item>
+            <mat-list-item>
+                <button><mat-icon mat-list-icon>add</mat-icon>
+                    <a routerLink="/add">Ajout d'un devoir</a></button>
+            </mat-list-item>
+            <mat-list-item>
+                <button><mat-icon mat-list-icon>edit</mat-icon>
+                    <a routerLink="/edit">Modification d'un devoir</a></button>
+            </mat-list-item>
+            <mat-list-item>
+                <button><mat-icon mat-list-icon>delete</mat-icon>
+                    <a routerLink="/edit">Suppression d'un devoir</a></button>
+            </mat-list-item>
+            <mat-list-item>
+                <button><mat-icon mat-list-icon>autorenew</mat-icon>
+                    <a>Génération données test</a></button>
+            </mat-list-item>
+        </mat-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
