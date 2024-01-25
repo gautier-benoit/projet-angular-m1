@@ -26,6 +26,11 @@ import { AddAssignmentComponent } from './assignments/add-assignment/add-assignm
 import { RouterModule, Routes } from '@angular/router';
 import { EditAssignmentComponent } from './assignments/edit-assignment/edit-assignment.component';
 import { LoginComponent } from './login/login.component';
+import { HttpClientModule } from '@angular/common/http';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
+
 
 const routes: Routes = [
   // home page, ce qui sera affiché avec localhost/4200/
@@ -56,7 +61,8 @@ const routes: Routes = [
     MatCardModule, MatFormFieldModule, MatInputModule,
     FormsModule, MatDatepickerModule, MatNativeDateModule,
     MatToolbarModule, MatSidenavModule, MatListModule,
-    MatCheckboxModule, RouterModule.forRoot(routes), MatSlideToggleModule
+    MatCheckboxModule, RouterModule.forRoot(routes), MatSlideToggleModule,
+    HttpClientModule, MatTableModule, MatSortModule, MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

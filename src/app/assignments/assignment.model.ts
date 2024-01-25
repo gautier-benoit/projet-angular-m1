@@ -1,6 +1,6 @@
 export class Assignment {
   id!:number;
   nom!:string;
-  dateDeRendu!:Date;
+  date_de_rendu!:Date;
   rendu!:boolean;
 }

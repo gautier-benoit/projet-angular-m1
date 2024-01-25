@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Assignment } from './assignment.model';
-import { AssignmentsService } from '../shared/assignments.service';
-import { Observable, of } from 'rxjs';
+import { AssignmentsService } from '../service/assignments.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-assignments',
@@ -15,19 +17,34 @@ export class AssignmentsComponent implements OnInit {
   id="monParagraphe";
   boutonDesactive = true;
   nomDevoir=""
-  dateDeRendu?:Date=undefined;
+  date_de_rendu?:Date=undefined;
   assignmentSelectionne!:Assignment;
   formVisible = false;
   assignments:Assignment[] = [];
-
+  rendus: Assignment[] = [];
+  dataSource = new MatTableDataSource(this.rendus);
+  displayedColumns: string[] = ['nom', 'date_de_rendu', 'rendu'];
   constructor(private assignmentsService:AssignmentsService) { }
 
+  @ViewChild('eventsSort') eventsSort = new MatSort();
+  @ViewChild(MatPaginator) paginator !: MatPaginator;
+
   ngOnInit() {
-    this.getAssignments();
+    //this.getAssignments();
     console.log(" AVANT RENDU DE LA PAGE !");
     setTimeout(() => {
       this.ajoutActive = true;
     }, 2000)
+    this.assignmentsService.getRendus().subscribe(data => {
+      this.rendus = data;
+      this.dataSource.data = this.rendus;
+      console.log(this.dataSource.data)
+    });  
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.sort = this.eventsSort;
+    this.dataSource.paginator = this.paginator;
   }
 
   getDescription() {
@@ -40,20 +57,25 @@ export class AssignmentsComponent implements OnInit {
   }
 
   onSubmit(event:any) {
-    this.titre = "Vous avez tapé : " + this.dateDeRendu;
+    this.titre = "Vous avez tapé : " + this.date_de_rendu;
     console.log(event)
     //event.preventDefault();
 
     let a = new Assignment();
     a.nom = this.nomDevoir;
-    if(this.dateDeRendu)
-      a.dateDeRendu = this.dateDeRendu;
+    if(this.date_de_rendu)
+      a.date_de_rendu = this.date_de_rendu;
 
     a.rendu = false;
 
     this.assignments.push(a);
   }
-
+  
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+}
+/**
   assignmentClique(assignment:Assignment) {
     console.log("Assignment cliqué : " + assignment.nom);
     this.assignmentSelectionne = assignment;
@@ -72,4 +94,5 @@ export class AssignmentsComponent implements OnInit {
   //   this.assignmentsService.addAssignment(event).subscribe(message => console.log(message));
   //   this.formVisible = false;
   // }
+  */
 }

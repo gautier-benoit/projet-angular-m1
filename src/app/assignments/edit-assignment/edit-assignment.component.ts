@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AssignmentsService } from 'src/app/shared/assignments.service';
+import { AssignmentsService } from 'src/app/service/assignments.service';
 import { Assignment } from '../assignment.model';
 
 @Component({
@@ -21,14 +21,14 @@ export class EditAssignmentComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getAssignment();
+    //this.getAssignment();
 
     // affichage console des query params et du fragment
     console.log("Query params : ", this.route.snapshot.queryParams);
     console.log("Fragment : ", this.route.snapshot.fragment);
   }
 
-  getAssignment() {
+  /**getAssignment() {
     // on récupère l'id dans le snapshot passé par le routeur
     // le "+" force l'id de type string en "number"
     const id = +this.route.snapshot.params['id'];
@@ -38,7 +38,7 @@ export class EditAssignmentComponent implements OnInit {
       this.assignment = assignment;
       // Pour pré-remplir le formulaire
       this.nomAssignment = assignment.nom;
-      this.dateDeRendu = assignment.dateDeRendu;
+      this.date_de_rendu = assignment.date_de_rendu;
     });
   }
   onSaveAssignment() {
@@ -46,7 +46,7 @@ export class EditAssignmentComponent implements OnInit {
 
     // on récupère les valeurs dans le formulaire
     this.assignment.nom = this.nomAssignment;
-    this.assignment.dateDeRendu = this.dateDeRendu;
+    this.assignment.date_de_rendu = this.date_de_rendu;
     this.assignmentsService
       .updateAssignment(this.assignment)
       .subscribe((message) => {
@@ -55,7 +55,9 @@ export class EditAssignmentComponent implements OnInit {
         // navigation vers la home page
         this.router.navigate(['/home']);
       });
-  }
+
+  */
+  
 }
 
 
