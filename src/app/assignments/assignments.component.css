@@ -1,8 +1,4 @@
 
-table tr td {
-  border: 1px solid black;
-}
-
 .rendu {
   color:green;
 }
@@ -24,4 +20,15 @@ table tr td {
 
 .ajouterBtn {
   align-self: flex-end;
+}
+
+table {
+  width: 100%;
+}
+
+.mat-header-row {
+/* todo : met le header de manière fixe en haut du tableau*/
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }

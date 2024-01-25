@@ -1,4 +1,3 @@
-<h3>Liste des devoirs :</h3>
 <!-- <div *ngFor="let a of assignments">
   <p *ngIf="a.rendu" appRendu>
     {{ a.nom }}, à rendre le {{ a.dateDeRendu }} RENDU.
@@ -8,24 +7,45 @@
   </p>
 </div> -->
 <main class="container">
-  <!--<button class="ajouterBtn" mat-flat-button color="accent" (click)="onAddAssignmentBtnClick()">Ajouter un devoir</button>-->
-  <div class="ajouterBtn">
-    <a routerLink="/add">
-      <button class="ajouterBtn" mat-flat-button color="accent">Ajouter un devoir</button>
-    </a>
-  </div>
-  <mat-list *ngFor="let assignment of assignments">
-    <nav><a routerLink="/assignment/{{assignment.id}}">
-      <h3 mat-subheader>{{ assignment.dateDeRendu | date }}</h3>
-        <mat-list-item (click)="assignmentClique(assignment)">
-          <p appRendu *ngIf="assignment.rendu; else nonsoumis">Devoir intitulé {{assignment.nom}} a été rendu. </p>
-          <ng-template #nonsoumis>
-            <p appNonRendu>Devoir intitulé {{assignment.nom}} n'a pas été rendu. </p>
-          </ng-template>
-          <mat-divider></mat-divider>
-        </mat-list-item>
-      </a></nav>
-  </mat-list>
+  <mat-form-field>
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Search columns" #input>
+  </mat-form-field>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" #eventsSort="matSort" matSort>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="nom">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        Nom
+      </th>
+      <td mat-cell *matCellDef="let rendu"> {{ rendu.nom }} </td>
+    </ng-container>
+
+    <!-- Date Column -->
+    <ng-container matColumnDef="date_de_rendu">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        Date
+      </th>
+      <td mat-cell *matCellDef="let rendu"> {{ rendu.date_de_rendu | date}} </td>
+    </ng-container>
+
+    <!-- Etat Column -->
+    <ng-container matColumnDef="rendu">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        Etat
+      </th>
+      <td mat-cell *matCellDef="let rendu"> {{ rendu.rendu ? 'Complété' : 'En attente' }} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+    showFirstLastButtons
+    aria-label="">
+  </mat-paginator>
+
   <!-- <app-assignment-detail [assignmentTransmis]="assignmentSelectionne"></app-assignment-detail> -->
 </main>
 <!-- <app-add-assignment (nouvelAssignment)="onNouvelAssignment($event)" *ngIf="formVisible"></app-add-assignment> -->

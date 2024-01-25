@@ -5,13 +5,13 @@
       {{ assignmentTransmis.nom }}
     </mat-card-title>
     <mat-card-subtitle>
-      {{ assignmentTransmis.dateDeRendu | date : "dd/MM/yyyy" }}
+      {{ assignmentTransmis.date_de_rendu | date : "dd/MM/yyyy" }}
     </mat-card-subtitle>
     <mat-checkbox *ngIf="!assignmentTransmis.rendu" (click)="onAssignmentRendu()">
       Rendu
     </mat-checkbox>
-    <button mat-raised-button color="primary" (click)="onClickEdit()" [disabled]="!isAdministrator()">Editer</button>
-    <button mat-raised-button color="warn" (click)="onDelete()" [disabled]="!isAdministrator()">
+    <button mat-raised-button color="primary"  [disabled]="false">Editer</button>
+    <button mat-raised-button color="warn" [disabled]="false">
       Supprimer
     </button>
   </mat-card-content>

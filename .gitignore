@@ -40,3 +40,6 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+projet-angular-m1\package-lock.json
+package-lock.json

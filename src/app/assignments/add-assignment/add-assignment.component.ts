@@ -1,5 +1,5 @@
 import { Component, OnInit, /*EventEmitter, Output*/ } from '@angular/core';
-import { AssignmentsService } from 'src/app/shared/assignments.service';
+import { AssignmentsService } from 'src/app/service/assignments.service';
 import { Assignment } from '../assignment.model';
 
 @Component({
@@ -22,13 +22,13 @@ export class AddAssignmentComponent implements OnInit {
     let newAssignment = new Assignment();
     newAssignment.nom = this.nomDevoir;
     if(this.dateDeRendu)
-    newAssignment.dateDeRendu = this.dateDeRendu;
+    newAssignment.date_de_rendu = this.dateDeRendu;
 
       newAssignment.rendu = false;
 
     //this.assignments.push(a);
     //this.nouvelAssignment.emit(newAssignment);
-    this.assignmentsService.addAssignment(newAssignment).subscribe(message => console.log(message));
+    //this.assignmentsService.addAssignment(newAssignment).subscribe(message => console.log(message));
   }
 
 }

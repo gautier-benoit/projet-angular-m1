@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Assignment } from '../assignment.model';
-import { AssignmentsService } from 'src/app/shared/assignments.service';
+import { AssignmentsService } from 'src/app/service/assignments.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/auth.service';
 
@@ -17,14 +17,14 @@ export class AssignmentDetailComponent implements OnInit {
   onAssignmentRendu() {
     if(this.assignmentTransmis)
       this.assignmentTransmis.rendu = true;
-    this.assignmentsService.updateAssignment(this.assignmentTransmis!).subscribe(message => console.log(message));
+    //this.assignmentsService.updateAssignment(this.assignmentTransmis!).subscribe(message => console.log(message));
     this.router.navigate(['/home']);
   }
   
   ngOnInit(): void {
-    this.getAssignment();
+    //this.getAssignment();
   }
-
+/**
   getAssignment(): void {
     // On récupère l'id dans le snapshot passé par le routeur
     // Le + devant permet de caster la chaine de caractères en nombre
@@ -45,4 +45,5 @@ export class AssignmentDetailComponent implements OnInit {
   isAdministrator(): boolean {
     return this.authService.isAdmin();
   }
+  */
 }
