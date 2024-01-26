@@ -3,3 +3,22 @@
     justify-content: space-between;
     align-items: flex-end;
 }
+
+button :disabled {
+    color: #434343;
+}
+
+mat-checkbox {
+    margin-right: 10px; 
+}
+
+img {
+    width: 15%;
+    height: 15%;
+    margin-left: 10px;
+    margin-bottom: 25px;
+}
+
+button {
+    margin-right: 10px;
+}

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Assignment } from '../assignment.model';
 import { AssignmentsService } from 'src/app/service/assignments.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,7 +10,9 @@ import { AuthService } from 'src/app/shared/auth.service';
   styleUrls: ['./assignment-detail.component.css']
 })
 export class AssignmentDetailComponent implements OnInit {
+
   /*@Input()*/ assignmentTransmis?:Assignment;
+  @Output() assignmentASupprimer = new EventEmitter<Assignment>();
 
   constructor(private assignmentsService:AssignmentsService, private route: ActivatedRoute, private router:Router, private authService:AuthService) { }
 
@@ -24,7 +26,31 @@ export class AssignmentDetailComponent implements OnInit {
   ngOnInit(): void {
     //this.getAssignment();
   }
-/**
+
+  // getAssignment() {
+  //   const id = +this.route.snapshot.params['id'];
+  //   this.assignmentsService.getAssignment(id).subscribe((assignment: Assignment | undefined) => this.assignmentTransmis = assignment);
+  // }
+
+  // onClickEdit() {
+  //   this.router.navigate(["/assignment", this.assignmentsService?.id, "edit"],
+  //     { queryParams: { nom: this.assignmentsService?.nom, fragment: "edition" } });
+  // }
+
+  // onDeleteRendu() {
+  //   this.assignmentsService.deleteAssignment(this.assignmentTransmis!)
+  //     .subscribe(() => {
+  //       this.router.navigate(["/home"]);
+  //     });
+  //   this.router.navigate(["/home"]);
+  // }
+
+  isAdmin(): boolean {
+    return this.authService.isAdmin();
+  }
+
+/** Méthodes de l'ancien assignment-detail.component.ts vu en TD
+ 
   getAssignment(): void {
     // On récupère l'id dans le snapshot passé par le routeur
     // Le + devant permet de caster la chaine de caractères en nombre
@@ -45,5 +71,6 @@ export class AssignmentDetailComponent implements OnInit {
   isAdministrator(): boolean {
     return this.authService.isAdmin();
   }
-  */
+  
+*/
 }
