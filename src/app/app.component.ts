@@ -7,7 +7,6 @@ import { AuthService } from './shared/auth.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-
 export class AppComponent {
   titre = 'Application de gestion de devoirs';
   nomProf = 'Gautier BENOIT';
@@ -17,15 +16,18 @@ export class AppComponent {
   constructor(private authService: AuthService, private router: Router) { }
 
   login() {
-    if (!this.authService.loggedIn) {
-      this.router.navigate(['/login']);
-    } else if (this.authService.loggedIn) {
-      this.authService.logOut();
-      this.router.navigate(['/home']);
-    }
+    this.authService.isLoggedIn().subscribe((isLoggedIn) => {
+      console.log('isLoggedIn', isLoggedIn);
+      if (!isLoggedIn) {
+        this.router.navigate(['/login']);
+      } else {
+        this.authService.logOut();
+        this.router.navigate(['/home']);
+      }
+    });
   }
 
   isLogged() {
-    return this.authService.isLogged();
+    return this.authService.isLoggedIn(); // Doit retourner un Observable
   }
 }
