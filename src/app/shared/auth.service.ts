@@ -1,41 +1,101 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable, of, tap } from 'rxjs';
+import { AccessType } from './user.model';
 
 @Injectable({
   providedIn: 'root'
 })
-
 export class AuthService {
-  loggedIn = false;
-  currentUser = {} as { login: string; password: string; role: string; }
+  private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private currentUser: { login: string; password: string; role: string; } | null = null;
+  url = "http://localhost:8010/api";
 
-  users = [
+  private users: { login: string; password: string; role: string; }[] = [
     { login: 'user1', password: 'pass1', role: 'user' },
     { login: 'admin', password: 'adminpass', role: 'admin' },
   ];
 
-  logIn(user: { login: string; password: string; } | undefined) {
+  constructor(private http: HttpClient) {
+    const loginStr = localStorage.getItem('login');
+    if (loginStr) {
+      const loginData = JSON.parse(loginStr) as ILoginStorage;
+      this.loggedIn.next(true);
+      this.users = loginData.user;
+    }
+    this.checkLocalStorageForCredentials();
+  }
+
+  private checkLocalStorageForCredentials() {
+    const user = localStorage.getItem('user');
     if (user) {
-      const foundUser = this.users.find(u => u.login === user.login && u.password === user.password);
-      if (foundUser) {
-        this.loggedIn = true;
-        this.currentUser = foundUser;
-      }
+      this.currentUser = JSON.parse(user);
+      this.loggedIn.next(true);
+    }
+  }
+
+  postLogin(login: string, password: string): Observable<{ message: string }> {
+    const foundUser = this.users.find(u => u.login === login && u.password === password);
+    if (foundUser) {
+      this.currentUser = foundUser;
+      localStorage.setItem('user', JSON.stringify(foundUser));
+      this.loggedIn.next(true);
+      return of({ message: 'TRUE' });
+    } else {
+      this.loggedIn.next(false);
+      return of({ message: 'FALSE' });
+    }
+  }
+
+  postRegister(login: String, password: String, lastName: string, firstName: string, accessType: AccessType, civility: string): Observable<any> {
+    return this.http.post<any>(`${this.url}/register`, { login, password, lastName, firstName, accessType, civility }).pipe(
+      tap(data => {
+        this.handleLogin(data);
+      })
+    );
+  }
+
+  handleLogin(data: any) {
+    if (data.message === "TRUE") {
+      const token = data.token;
+      const tokenData = token.split('.')[1];
+      const decodedTokenData = window.atob(tokenData);
+      const decodedTokenJsonData = JSON.parse(decodedTokenData);
+
+      localStorage.setItem('login', JSON.stringify({
+        user: decodedTokenJsonData.userData,
+        token: token
+      }));
+
+      this.users = decodedTokenJsonData.userData;
+      this.loggedIn.next(true);
+    }
+    else {
+      this.users = [];
+      this.loggedIn.next(false);
     }
   }
 
   logOut() {
-    this.loggedIn = false;
-    this.currentUser = {} as { login: string; password: string; role: string; }
+    this.loggedIn.next(false);
+    this.currentUser = null;
+    localStorage.removeItem('user');
   }
 
-
-  isLogged() {
-    return this.loggedIn;
+  public isLoggedIn(): Observable<boolean> {
+    return this.loggedIn.asObservable();
   }
 
-  isAdmin() {
-    return this.loggedIn && this.currentUser && this.currentUser.role === 'admin';
+  getCurrentUser() {
+    return this.currentUser;
   }
 
-  constructor() { }
+  isAdmin(): boolean {
+    return this.currentUser !== null && this.currentUser.role === 'admin';
+  }
+
+}
+
+interface ILoginStorage {
+  user: any;
 }
