@@ -3,8 +3,8 @@ export class Assignment {
   nom!:string;
   dateDeRendu!:Date;
   rendu!:boolean;
-matiere: any;
-description: any;
-picture: any;
-note: any;
+  matiere: any;
+  description: any;
+  picture: any;
+  note: any;
 }

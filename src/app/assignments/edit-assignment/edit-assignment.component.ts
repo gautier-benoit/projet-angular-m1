@@ -38,7 +38,7 @@ export class EditAssignmentComponent implements OnInit {
       this.assignment = assignment;
       // Pour pré-remplir le formulaire
       this.nomAssignment = assignment.nom;
-      this.date_de_rendu = assignment.date_de_rendu;
+      this.dateDeRendu = assignment.dateDeRendu;
     });
   }
   onSaveAssignment() {
@@ -46,7 +46,7 @@ export class EditAssignmentComponent implements OnInit {
 
     // on récupère les valeurs dans le formulaire
     this.assignment.nom = this.nomAssignment;
-    this.assignment.date_de_rendu = this.date_de_rendu;
+    this.assignment.dateDeRendu = this.dateDeRendu;
     this.assignmentsService
       .updateAssignment(this.assignment)
       .subscribe((message) => {

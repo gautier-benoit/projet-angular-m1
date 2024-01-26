@@ -17,13 +17,13 @@ export class AssignmentsComponent implements OnInit {
   id="monParagraphe";
   boutonDesactive = true;
   nomDevoir=""
-  date_de_rendu?:Date=undefined;
+  dateDeRendu?:Date=undefined;
   assignmentSelectionne!:Assignment;
   formVisible = false;
   assignments:Assignment[] = [];
   rendus: Assignment[] = [];
   dataSource = new MatTableDataSource(this.rendus);
-  displayedColumns: string[] = ['nom', 'date_de_rendu', 'rendu', 'actions'];
+  displayedColumns: string[] = ['nom', 'matiere', 'dateDeRendu', 'rendu', 'actions'];
   constructor(private assignmentsService:AssignmentsService) { }
 
   @ViewChild('eventsSort') eventsSort = new MatSort();
@@ -57,14 +57,14 @@ export class AssignmentsComponent implements OnInit {
   }
 
   onSubmit(event:any) {
-    this.titre = "Vous avez tapé : " + this.date_de_rendu;
+    this.titre = "Vous avez tapé : " + this.dateDeRendu;
     console.log(event)
     //event.preventDefault();
 
     let a = new Assignment();
     a.nom = this.nomDevoir;
-    if(this.date_de_rendu)
-      a.date_de_rendu = this.date_de_rendu;
+    if(this.dateDeRendu)
+      a.dateDeRendu = this.dateDeRendu;
 
     a.rendu = false;
 

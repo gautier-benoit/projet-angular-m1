@@ -22,7 +22,7 @@ export class AddAssignmentComponent implements OnInit {
     let newAssignment = new Assignment();
     newAssignment.nom = this.nomDevoir;
     if(this.dateDeRendu)
-    newAssignment.date_de_rendu = this.dateDeRendu;
+    newAssignment.dateDeRendu = this.dateDeRendu;
 
       newAssignment.rendu = false;
 

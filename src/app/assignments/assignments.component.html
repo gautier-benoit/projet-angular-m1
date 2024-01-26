@@ -31,12 +31,21 @@
       <td mat-cell *matCellDef="let rendu"> {{ rendu.nom }} </td>
     </ng-container>
 
+    <!-- Matiere Column -->
+    <ng-container matColumnDef="matiere">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        Matière
+      </th>
+      <td mat-cell *matCellDef="let rendu"> {{ rendu.matiere }} </td>
+    </ng-container>
+    
+
     <!-- Date Column -->
-    <ng-container matColumnDef="date_de_rendu">
+    <ng-container matColumnDef="dateDeRendu">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>
         Date
       </th>
-      <td mat-cell *matCellDef="let rendu"> {{ rendu.date_de_rendu | date : "dd/MM/yyyy" }} </td>
+      <td mat-cell *matCellDef="let rendu"> {{ rendu.dateDeRendu | date : "dd/MM/yyyy" }} </td>
     </ng-container>
 
     <!-- Etat Column -->
