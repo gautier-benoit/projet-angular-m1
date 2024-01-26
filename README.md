@@ -9,3 +9,9 @@ Run `npm install` to install all dependencies.
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+
+## Divers
+
+Version node : 
+
+Lien vers l'API : https://github.com/gautier-benoit/projet-angular-api-m1.git
