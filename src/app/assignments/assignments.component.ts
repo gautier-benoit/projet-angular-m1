@@ -23,7 +23,7 @@ export class AssignmentsComponent implements OnInit {
   assignments:Assignment[] = [];
   rendus: Assignment[] = [];
   dataSource = new MatTableDataSource(this.rendus);
-  displayedColumns: string[] = ['nom', 'date_de_rendu', 'rendu'];
+  displayedColumns: string[] = ['nom', 'date_de_rendu', 'rendu', 'actions'];
   constructor(private assignmentsService:AssignmentsService) { }
 
   @ViewChild('eventsSort') eventsSort = new MatSort();

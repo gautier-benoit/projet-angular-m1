@@ -1,6 +1,10 @@
 export class Assignment {
   id!:number;
   nom!:string;
-  date_de_rendu!:Date;
+  dateDeRendu!:Date;
   rendu!:boolean;
+matiere: any;
+description: any;
+picture: any;
+note: any;
 }
