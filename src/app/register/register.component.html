@@ -1,0 +1,48 @@
+<div id ="register_div">
+    <form [formGroup]="basicInfo">
+      <mat-form-field appearance="fill" class="width-50">
+        <input type="text" matInput placeholder="Prénom" formControlName="firstName" name="firstName">
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="width-50 ml-2">
+        <input type="text" matInput placeholder="Nom" formControlName="lastName" name="lastName">
+      </mat-form-field>
+      <br>
+      <label id="example-radio-group-label">Rôle: </label>
+      <br><br>
+      <mat-radio-group formControlName="accessType" name="accessType" aria-label="Select an option">
+        <mat-radio-button value="eleve">Elève</mat-radio-button>
+        <mat-radio-button class="example-radio-button" value="prof">Prof</mat-radio-button>
+      </mat-radio-group>
+      <br><br>
+      <br>
+      <label id="example-radio-group-label">Civilité: </label>
+      <br><br>
+      <mat-radio-group formControlName="civility" name="civility" aria-label="Select an option">
+        <mat-radio-button value="male">Homme</mat-radio-button>
+        <mat-radio-button class="example-radio-button" value="female">Femme</mat-radio-button>
+      </mat-radio-group>
+      <br><br>
+    </form>
+    <form [formGroup]="loginInfo">
+      <mat-form-field appearance="fill" class="width-100">
+        <mat-label>Adresse mail</mat-label>
+        <input matInput formControlName="email" name="email" placeholder="eleve@etu.unice.fr">
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="fill" class="width-100">
+        <mat-label>Mot de passe</mat-label>
+        <input matInput placeholder="Mot de passe" formControlName="password" name="password" [type]="hide ? 'password' : 'text'">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Cacher le mot de passe'" [attr.aria-pressed]=" hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="fill" class="width-100">
+        <mat-label>Confirmation du mot de passe</mat-label>
+        <input matInput placeholder="Confirmation du mot de passe" formControlName="passwordConfirmation" name="passwordConfirmation" [type]="hide ? 'password' : 'text'">
+      </mat-form-field>
+      <br>
+    </form>
+    <button mat-raised-button id="register_button"color="primary" (click)="onSubmit()">S'inscrire</button>
+  </div>
+
