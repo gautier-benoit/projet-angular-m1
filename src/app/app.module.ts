@@ -11,8 +11,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
-import { authGuard } from './shared/auth.guard';
+import { AuthGuard } from './shared/auth.guard';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatRadioModule } from '@angular/material/radio';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -30,6 +33,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { RegisterComponent } from './register/register.component';
 
 
 const routes: Routes = [
@@ -38,8 +42,8 @@ const routes: Routes = [
   // ce qui sera affiché avec localhost/4200/home
   { path: 'home', component: AssignmentsComponent },
   { path: 'add', component: AddAssignmentComponent },
-  { path: 'assignment/:id', component: AssignmentDetailComponent, canActivate: [authGuard] },
-  { path: 'assignment/:id/edit', component: EditAssignmentComponent, canActivate: [authGuard] },
+  { path: 'assignment/:id', component: AssignmentDetailComponent, canActivate: [AuthGuard] },
+  { path: 'assignment/:id/edit', component: EditAssignmentComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent }
 ];
 
@@ -52,17 +56,19 @@ const routes: Routes = [
     AssignmentDetailComponent,
     AddAssignmentComponent,
     EditAssignmentComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     MatButtonModule, MatIconModule, MatDividerModule,
     MatCardModule, MatFormFieldModule, MatInputModule,
+    ReactiveFormsModule, MatRadioModule,
     FormsModule, MatDatepickerModule, MatNativeDateModule,
     MatToolbarModule, MatSidenavModule, MatListModule,
     MatCheckboxModule, RouterModule.forRoot(routes), MatSlideToggleModule,
-    HttpClientModule, MatTableModule, MatSortModule, MatPaginatorModule
+    HttpClientModule, MatTableModule, MatSortModule, MatPaginatorModule, MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

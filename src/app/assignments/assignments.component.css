@@ -14,21 +14,50 @@
 }
 
 .container {
-  display:flex;
-  flex-direction: column;
+  padding-bottom: 16px;
+}
+
+.add-del-buttons + .add-del-buttons {
+  margin-left: 8px;
 }
 
 .ajouterBtn {
   align-self: flex-end;
 }
 
-table {
+.barre-recherche {
   width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
 }
 
-.mat-header-row {
-/* todo : met le header de manière fixe en haut du tableau*/
-  position: sticky;
-  top: 0;
-  z-index: 1;
+table.mat-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #ddd; 
+}
+
+.mat-header-cell {
+  background-color: #3f51b5; 
+  color: white; 
+  padding: 15px;
+  text-align: left;
+}
+
+.mat-cell {
+  padding: 15px;
+  border-bottom: 1px solid #ddd; 
+}
+
+.mat-row {
+  transition: background-color 0.3s ease;
+}
+
+.mat-row:hover {
+  background-color: #f5f5f5;
+}
+
+.mat-cell[matColumnDef="rendu"] {
+  font-weight: bold;
 }

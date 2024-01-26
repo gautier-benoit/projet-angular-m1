@@ -1,11 +1,26 @@
-<form (ngSubmit)="onSubmit()">
-    <label for="login">Login:</label>
-    <input type="text" id="login" [(ngModel)]="user.login" name="login">
-
-    <label for="password">Password:</label>
-    <input type="password" id="password" [(ngModel)]="user.password" name="password">
-
-    <button type="submit">Connecter</button>
-    <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
-
-</form>
+<mat-card>
+    <mat-card-content>
+      <form #loginForm="ngForm" (ngSubmit)="login()">
+        <h2>Se connecter</h2>
+        <mat-error *ngIf="!loginValid">
+          The username and password were not recognized
+        </mat-error>
+        <mat-form-field>
+          <input matInput placeholder="Email" [(ngModel)]="name" name="name" required>
+          <mat-error>
+            Renseignez un email valide
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="password" placeholder="Password" [(ngModel)]="password" name="password" required>
+          <mat-error>
+            Renseignez un mot de passe valide
+          </mat-error>
+        </mat-form-field>
+        <button mat-raised-button color="primary" [disabled]="!loginForm.form.valid">Login</button>
+      </form>
+      <button mat-raised-button color="secondary" id="register" (click)="openDialog()">
+        Inscription
+      </button>  
+    </mat-card-content>
+  </mat-card>
