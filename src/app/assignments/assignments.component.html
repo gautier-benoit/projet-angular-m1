@@ -15,7 +15,7 @@
   <button mat-raised-button class="add-button">
     Ajouter un assignment
   </button>
-  
+
   <mat-slide-toggle class="rendus-slider" [(ngModel)]="isCompleted" (change)="getAssignments()">Seulement les rendus</mat-slide-toggle>
 
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" #eventsSort="matSort" matSort>
@@ -65,7 +65,7 @@
         <button mat-icon-button color="primary"> <!-- ajouter les onclick -->
           <mat-icon>edit</mat-icon>
         </button>
-        <button mat-icon-button color="warn">
+        <button mat-icon-button color="warn" (click)="deleteAssignment(rendu)">
           <mat-icon>delete</mat-icon>
         </button>
       </td>

@@ -15,7 +15,7 @@ export class AssignmentsComponent implements OnInit {
   titre = "Formulaire d'ajout de devoir";
   ajoutActive = false;
   color = 'green';
-  id="monParagraphe";
+  id!: number;
   boutonDesactive = true;
   nomDevoir=""
   dateDeRendu?:Date=undefined;
@@ -93,6 +93,12 @@ export class AssignmentsComponent implements OnInit {
         this.assignments = assignments;
       }
       this.dataSource.data = this.assignments;
+    });
+  }
+
+  deleteAssignment(assignment: Assignment) {
+    this.assignmentsService.deleteAssignment(assignment.id).subscribe(() => {
+      this.getAssignments();
     });
   }
 
