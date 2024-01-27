@@ -17,12 +17,15 @@
   padding-bottom: 16px;
 }
 
-.add-del-buttons + .add-del-buttons {
+.add-button {
   margin-left: 8px;
+  margin-bottom: 15px;
 }
 
-.ajouterBtn {
-  align-self: flex-end;
+.rendus-slider {
+  position: fixed;
+  margin-top: 10px;
+  margin-left: 10px;
 }
 
 .barre-recherche {

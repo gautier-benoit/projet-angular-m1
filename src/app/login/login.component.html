@@ -3,7 +3,7 @@
       <form #loginForm="ngForm" (ngSubmit)="login()">
         <h2>Se connecter</h2>
         <mat-error *ngIf="!loginValid">
-          The username and password were not recognized
+          Le pseudo ou le mot de passe est incorrect
         </mat-error>
         <mat-form-field>
           <input matInput placeholder="Email" [(ngModel)]="name" name="name" required>
@@ -17,7 +17,7 @@
             Renseignez un mot de passe valide
           </mat-error>
         </mat-form-field>
-        <button mat-raised-button color="primary" [disabled]="!loginForm.form.valid">Login</button>
+        <button mat-raised-button color="primary" [disabled]="!loginForm.form.valid">Connexion</button>
       </form>
       <button mat-raised-button color="secondary" id="register" (click)="openDialog()">
         Inscription

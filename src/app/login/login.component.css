@@ -19,6 +19,12 @@ button {
     margin-top: 10px;
 }
 
+#register {
+    display: block;
+    width: 200px;
+    margin: 20px auto;
+  }
+
 .error {
     color: red;
     text-align: center;

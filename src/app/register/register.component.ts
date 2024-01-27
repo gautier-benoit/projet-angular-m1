@@ -67,11 +67,10 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-
   register(login :Users) {
     this.authService.postRegister(login.login, login.password, login.lastName, login.firstName, login.accessType as AccessType, login.civility).subscribe(
       (response) => {
-        if (response.message !== 'MERDE') {
+        if (response.message !== 'LOG') {
           this.router.navigate(['/home']);
         }
       }

@@ -45,4 +45,9 @@ export class AssignmentsService {
   public getRendus(): Observable<Assignment[]> {
     return this.http.get<Assignment[]>(this.apiUrl);
   }
+
+  public deleteAssignment(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
+
 }

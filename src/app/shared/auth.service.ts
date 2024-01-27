@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of, tap } from 'rxjs';
-import { AccessType } from './user.model';
+import { AccessType, Users } from './user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,17 +11,16 @@ export class AuthService {
   private currentUser: { login: string; password: string; role: string; } | null = null;
   url = "http://localhost:8010/api";
 
-  private users: { login: string; password: string; role: string; }[] = [
-    { login: 'user1', password: 'pass1', role: 'user' },
-    { login: 'admin', password: 'adminpass', role: 'admin' },
-  ];
+  private users: { login: string; password: string; role: string; }[] = [];
 
   constructor(private http: HttpClient) {
     const loginStr = localStorage.getItem('login');
     if (loginStr) {
       const loginData = JSON.parse(loginStr) as ILoginStorage;
       this.loggedIn.next(true);
-      this.users = loginData.user;
+      if (Array.isArray(loginData.user)) {
+        this.users = loginData.user;
+      }
     }
     this.checkLocalStorageForCredentials();
   }
