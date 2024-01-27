@@ -1,36 +1,46 @@
 <!-- <p *ngIf="assignmentTransmis">{{assignmentTransmis.nom}}</p> -->
-<mat-card *ngIf="assignmentTransmis">
-  <mat-card-content>
-    <mat-card-title>
-      {{ assignmentTransmis.nom }}
-    </mat-card-title>
-    <mat-card-subtitle>
-      {{ assignmentTransmis.dateDeRendu | date : "dd/MM/yyyy" }}
-    </mat-card-subtitle>
+<mat-dialog-content>
+  <mat-card *ngIf="assignment">
     <mat-card-content>
-      <div *ngIf="assignmentTransmis.picture">
-        <img mat-card-avatar [src]="assignmentTransmis.picture" />
+      <div class="head">
+        <div class="head-left">
+          <h1>
+            {{ assignment.nom }}
+          </h1>
+          <mat-card-subtitle>
+            {{ assignment.dateDeRendu | date : "dd/MM/yyyy" }}
+          </mat-card-subtitle>
+        </div>
+        <div class="head-right">
+          <div *ngIf="assignment.picture" class="img">
+            <img mat-card-avatar [src]="assignment.picture" />
+          </div>
+        </div>
       </div>
-      <p *ngIf="assignmentTransmis.rendu">
-        Remarques : {{ assignmentTransmis.description }}
-      </p>
-      <p>Matière: {{ assignmentTransmis.matiere }}</p>
-      <p *ngIf="assignmentTransmis.rendu"></p>
-      <div *ngIf="assignmentTransmis.rendu">
-        <p>Remarques: {{ assignmentTransmis.description }}</p>
-        <p>Note: {{ assignmentTransmis.note }}</p>
-      </div>
-      <p *ngIf="!assignmentTransmis.rendu">Non rendu</p>
-      <p *ngIf="assignmentTransmis.rendu">Rendu</p>
+      <mat-card-content>
+        <p>Enseignant : {{ assignment.prof }}</p>
+        <div *ngIf="!assignment.rendu">
+          <p *ngIf="!assignment.rendu">
+            Description : {{ assignment.description }}
+          </p>
+        </div>
+        <p>Matière: {{ assignment.matiere }}</p>
+        <div *ngIf="assignment.rendu">
+          <p>Description: {{ assignment.description }}</p>
+          <p>Note: {{ assignment.note }}</p>
+        </div>
+        <p *ngIf="!assignment.rendu">Non rendu</p>
+        <p *ngIf="assignment.rendu">Rendu</p>
+      </mat-card-content>
+      <mat-checkbox *ngIf="!assignment.rendu">
+        Rendu
+      </mat-checkbox>
+      <button mat-raised-button color="primary">
+        Editer
+      </button>
+      <button mat-raised-button color="warn">
+        Supprimer
+      </button>
     </mat-card-content>
-    <mat-checkbox *ngIf="!assignmentTransmis.rendu" (click)="onAssignmentRendu()">
-      Rendu
-    </mat-checkbox>
-    <button mat-raised-button color="primary"  [disabled]="!isAdmin()">
-      Editer
-    </button>
-    <button mat-raised-button color="warn"  [disabled]="!isAdmin()">
-      Supprimer
-    </button>
-  </mat-card-content>
-</mat-card>
+  </mat-card>
+</mat-dialog-content>

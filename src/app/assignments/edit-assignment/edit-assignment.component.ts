@@ -34,7 +34,6 @@ export class EditAssignmentComponent implements OnInit {
   //   // on récupère l'id dans le snapshot passé par le routeur
   //   // le "+" force l'id de type string en "number"
   //   const id = +this.route.snapshot.params['id'];
-
   //   this.assignmentsService.getAssignment().subscribe((assignments: Assignment[]) => {
   //     if (!assignments || assignments.length === 0) return;
   //     this.assignment = assignments[0];
@@ -43,7 +42,6 @@ export class EditAssignmentComponent implements OnInit {
   //     this.dateDeRendu = assignment.dateDeRendu;
   //   });
   // }
-
 
   // onSaveAssignment() {
   //   if (!this.assignment) return;
@@ -56,7 +54,7 @@ export class EditAssignmentComponent implements OnInit {
   //     .updateAssignment(this.assignment)
   //     .subscribe((message: string) => {
   //       console.log(message);
-
+  
   //       // navigation vers la home page
   //       this.router.navigate(['/home']);
   //     });

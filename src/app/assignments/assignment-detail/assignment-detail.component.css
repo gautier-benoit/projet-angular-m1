@@ -13,12 +13,14 @@ mat-checkbox {
 }
 
 img {
-    width: 15%;
-    height: 15%;
-    margin-left: 10px;
-    margin-bottom: 25px;
+    width: 30%;
+    height: 30%;
+    margin-right: 10px;
+    margin-top: 10px;
+    float: right;
 }
 
 button {
+    margin-top: 10px;
     margin-right: 10px;
 }
