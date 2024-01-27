@@ -3,6 +3,8 @@ import { Assignment } from '../assignment.model';
 import { AssignmentsService } from 'src/app/service/assignments.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/auth.service';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Inject } from '@angular/core';
 
 @Component({
   selector: 'app-assignment-detail',
@@ -14,22 +16,22 @@ export class AssignmentDetailComponent implements OnInit {
   /*@Input()*/ assignmentTransmis?:Assignment;
   @Output() assignmentASupprimer = new EventEmitter<Assignment>();
 
-  constructor(private assignmentsService:AssignmentsService, private route: ActivatedRoute, private router:Router, private authService:AuthService) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public assignment: any) { }
 
-  onAssignmentRendu() {
-    if(this.assignmentTransmis)
-      this.assignmentTransmis.rendu = true;
-    //this.assignmentsService.updateAssignment(this.assignmentTransmis!).subscribe(message => console.log(message));
-    this.router.navigate(['/home']);
-  }
+  // onAssignmentRendu() {
+  //   if(this.assignmentTransmis)
+  //     this.assignmentTransmis.rendu = true;
+  //   //this.assignmentsService.updateAssignment(this.assignmentTransmis!).subscribe(message => console.log(message));
+  //   this.router.navigate(['/home']);
+  // }
   
   ngOnInit(): void {
-    //this.getAssignment();
+    console.log("Assignment reçu dans le détail : ", this.assignment);
   }
 
-  // getAssignment() {
-  //   const id = +this.route.snapshot.params['id'];
-  //   this.assignmentsService.getAssignment(id).subscribe((assignment: Assignment | undefined) => this.assignmentTransmis = assignment);
+  // getAssignment(assignment:) {
+  //    const id = +this.route.snapshot.params['id'];
+  //    this.assignmentsService.getAssignment(id).subscribe((assignment: Assignment | undefined) => this.assignmentTransmis = assignment);
   // }
 
   // onClickEdit() {
@@ -45,9 +47,9 @@ export class AssignmentDetailComponent implements OnInit {
   //   this.router.navigate(["/home"]);
   // }
 
-  isAdmin(): boolean {
-    return this.authService.isAdmin();
-  }
+  // isAdmin(): boolean {
+  //   return this.authService.isAdmin();
+  // }
 
 /** Méthodes de l'ancien assignment-detail.component.ts vu en TD
  
