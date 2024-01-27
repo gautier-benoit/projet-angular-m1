@@ -12,9 +12,11 @@
     <input matInput (keyup)="applyFilter($event)" placeholder="Rechercher" #input>
   </mat-form-field>
 
-  <button mat-raised-button class="add-del-button">
+  <button mat-raised-button class="add-button">
     Ajouter un assignment
   </button>
+  
+  <mat-slide-toggle class="rendus-slider" [(ngModel)]="isCompleted" (change)="getAssignments()">Seulement les rendus</mat-slide-toggle>
 
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" #eventsSort="matSort" matSort>
 

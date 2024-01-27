@@ -3,7 +3,8 @@ import { Assignment } from './assignment.model';
 import { AssignmentsService } from '../service/assignments.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-assignments',
@@ -24,22 +25,18 @@ export class AssignmentsComponent implements OnInit {
   rendus: Assignment[] = [];
   dataSource = new MatTableDataSource(this.rendus);
   displayedColumns: string[] = ['nom', 'matiere', 'dateDeRendu', 'rendu', 'actions'];
+  isCompleted = false;
   constructor(private assignmentsService:AssignmentsService) { }
 
   @ViewChild('eventsSort') eventsSort = new MatSort();
   @ViewChild(MatPaginator) paginator !: MatPaginator;
 
   ngOnInit() {
-    //this.getAssignments();
+    this.getAssignments();
     console.log(" AVANT RENDU DE LA PAGE !");
     setTimeout(() => {
       this.ajoutActive = true;
-    }, 2000)
-    this.assignmentsService.getRendus().subscribe(data => {
-      this.rendus = data;
-      this.dataSource.data = this.rendus;
-      console.log(this.dataSource.data)
-    });  
+    }, 2000) 
   }
 
   ngAfterViewInit() {
@@ -74,7 +71,9 @@ export class AssignmentsComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-}
+  }
+
+
 /**
   assignmentClique(assignment:Assignment) {
     console.log("Assignment cliqué : " + assignment.nom);
@@ -84,9 +83,17 @@ export class AssignmentsComponent implements OnInit {
   onAddAssignmentBtnClick() {
     //this.formVisible = true;
   }
+  */
   
   getAssignments() {
-    this.assignmentsService.getAssignments().subscribe(assignments => this.assignments = assignments);
+    this.assignmentsService.getRendus().subscribe((assignments) => {
+      if (this.isCompleted) {
+        this.assignments = assignments.filter(assignment => assignment.rendu);
+      } else {
+        this.assignments = assignments;
+      }
+      this.dataSource.data = this.assignments;
+    });
   }
 
   // onNouvelAssignment(event:Assignment) {
@@ -94,5 +101,4 @@ export class AssignmentsComponent implements OnInit {
   //   this.assignmentsService.addAssignment(event).subscribe(message => console.log(message));
   //   this.formVisible = false;
   // }
-  */
 }

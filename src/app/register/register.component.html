@@ -1,5 +1,6 @@
 <div id ="register_div">
     <form [formGroup]="basicInfo">
+      <h2>S'inscrire</h2>
       <mat-form-field appearance="fill" class="width-50">
         <input type="text" matInput placeholder="Prénom" formControlName="firstName" name="firstName">
       </mat-form-field>
@@ -11,7 +12,7 @@
       <br><br>
       <mat-radio-group formControlName="accessType" name="accessType" aria-label="Select an option">
         <mat-radio-button value="eleve">Elève</mat-radio-button>
-        <mat-radio-button class="example-radio-button" value="prof">Prof</mat-radio-button>
+        <mat-radio-button class="example-radio-button" value="prof">Professeur</mat-radio-button>
       </mat-radio-group>
       <br><br>
       <br>

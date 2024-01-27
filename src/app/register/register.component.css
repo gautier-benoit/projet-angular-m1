@@ -25,6 +25,7 @@
 #register_div {
 	display: grid;
 	height: 80%;
+	padding: 20px;
 }
 
 #register_button {
