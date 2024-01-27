@@ -3,7 +3,9 @@ import { Assignment } from './assignment.model';
 import { AssignmentsService } from '../service/assignments.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import {  MatPaginator, MatPaginatorModule  } from '@angular/material/paginator';
+import { MatDialog } from '@angular/material/dialog';
+import { AssignmentDetailComponent } from './assignment-detail/assignment-detail.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @Component({
@@ -17,16 +19,16 @@ export class AssignmentsComponent implements OnInit {
   color = 'green';
   id!: number;
   boutonDesactive = true;
-  nomDevoir=""
-  dateDeRendu?:Date=undefined;
-  assignmentSelectionne!:Assignment;
+  nomDevoir = ""
+  dateDeRendu?: Date = undefined;
+  assignmentSelectionne!: Assignment;
   formVisible = false;
-  assignments:Assignment[] = [];
+  assignments: Assignment[] = [];
   rendus: Assignment[] = [];
   dataSource = new MatTableDataSource(this.rendus);
   displayedColumns: string[] = ['nom', 'matiere', 'dateDeRendu', 'rendu', 'actions'];
   isCompleted = false;
-  constructor(private assignmentsService:AssignmentsService) { }
+  constructor(private assignmentsService: AssignmentsService, public dialog: MatDialog) { }
 
   @ViewChild('eventsSort') eventsSort = new MatSort();
   @ViewChild(MatPaginator) paginator !: MatPaginator;
@@ -53,25 +55,52 @@ export class AssignmentsComponent implements OnInit {
     else return 'red';
   }
 
-  onSubmit(event:any) {
+  onSubmit(event: any) {
     this.titre = "Vous avez tapé : " + this.dateDeRendu;
     console.log(event)
     //event.preventDefault();
 
     let a = new Assignment();
     a.nom = this.nomDevoir;
-    if(this.dateDeRendu)
+    if (this.dateDeRendu)
       a.dateDeRendu = this.dateDeRendu;
 
     a.rendu = false;
 
     this.assignments.push(a);
   }
-  
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+
+  viewDetails(rendu: Assignment) {
+    this.dialog.open(AssignmentDetailComponent, {
+      width: '600px',
+      data: rendu
+    },);
+    }
+      /**
+    assignmentClique(assignment:Assignment) {
+      console.log("Assignment cliqué : " + assignment.nom);
+      this.assignmentSelectionne = assignment;
+    }
+  
+    onAddAssignmentBtnClick() {
+      //this.formVisible = true;
+    }
+    
+    getAssignments() {
+      this.assignmentsService.getAssignments().subscribe(assignments => this.assignments = assignments);
+    }
+  
+    // onNouvelAssignment(event:Assignment) {
+    //   //this.assignments.push(event);
+    //   this.assignmentsService.addAssignment(event).subscribe(message => console.log(message));
+    //   this.formVisible = false;
+    // }
+    */
 
 
 /**
