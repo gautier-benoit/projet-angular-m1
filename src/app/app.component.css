@@ -40,3 +40,15 @@ mat-list-item a {
 mat-icon {
   margin-right: 10px;
 }
+
+.mat-toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000; /* Ceci assure que la barre d'outils reste au-dessus des autres éléments */
+}
+
+.content {
+  padding-top: 64px; /* Remplacez 64px par la hauteur réelle de votre barre d'outils */
+}

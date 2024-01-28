@@ -33,19 +33,26 @@ export class AuthService {
     }
   }
 
-  postLogin(login: string, password: string): Observable<{ message: string }> {
-    const foundUser = this.users.find(u => u.login === login && u.password === password);
-    if (foundUser) {
-      this.currentUser = foundUser;
-      localStorage.setItem('user', JSON.stringify(foundUser));
-      this.loggedIn.next(true);
-      return of({ message: 'TRUE' });
-    } else {
-      this.loggedIn.next(false);
-      return of({ message: 'FALSE' });
-    }
-  }
+  // (old) postLogin(login: string, password: string): Observable<{ message: string }> {
+  //   const foundUser = this.users.find(u => u.login === login && u.password === password);
+  //   if (foundUser) {
+  //     this.currentUser = foundUser;
+  //     localStorage.setItem('user', JSON.stringify(foundUser));
+  //     this.loggedIn.next(true);
+  //     return of({ message: 'TRUE' });
+  //   } else {
+  //     this.loggedIn.next(false);
+  //     return of({ message: 'FALSE' });
+  //   }
+  // }
 
+  postLogin(login: string, password: string): Observable<{ message: string, token?: string }> {
+    return this.http.post<{ message: string, token?: string }>(`${this.url}/login`, { login, password }).pipe(
+      tap(data => {
+        this.handleLogin(data);
+      })
+    );
+  }
   postRegister(login: String, password: String, lastName: string, firstName: string, accessType: AccessType, civility: string): Observable<any> {
     return this.http.post<any>(`${this.url}/register`, { login, password, lastName, firstName, accessType, civility }).pipe(
       tap(data => {
