@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AssignmentsService } from 'src/app/service/assignments.service';
 import { Assignment } from '../assignment.model';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { get } from 'mongoose';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-edit-assignment',
@@ -10,43 +13,48 @@ import { Assignment } from '../assignment.model';
 })
 
 export class EditAssignmentComponent implements OnInit {
-  assignment!: Assignment | undefined;
   nomAssignment!: string;
   dateDeRendu!: Date;
-  detail!: string;
+  description!: string;
+  matiere!: string;
   note!: number;
+  prof!: string;
+  assignmentTransmis?: Assignment;
 
   constructor(
     private assignmentsService: AssignmentsService,
-    private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    @Inject(MAT_DIALOG_DATA) public assignment: Assignment,
+    public dialogRef: MatDialogRef<EditAssignmentComponent>
   ) { }
 
   ngOnInit(): void {
+    console.log("Assignment reçu dans l'edit : ", this.assignment);
     this.getAssignment();
-
-    // affichage console des query params et du fragment
-    console.log("Query params : ", this.route.snapshot.queryParams);
-    console.log("Fragment : ", this.route.snapshot.fragment);
   }
 
-  getAssignment() {
-    const id = +this.route.snapshot.params['id'];
-    this.assignmentsService.getRendu(id).subscribe((assignment) => {
-      if (!assignment) return;
-      this.assignment = assignment;
-      // Pour pré-remplir le formulaire
-      this.nomAssignment = assignment.nom;
-      this.dateDeRendu = assignment.dateDeRendu;
-    });
-  }
-
-  onSaveAssignment() {
-    if(this.nomAssignment) this.assignment!.nom = this.nomAssignment;
-    if(this.dateDeRendu) this.assignment!.dateDeRendu = this.dateDeRendu;
+  onSubmit(event: any) {
+    event.preventDefault();
+    if (this.nomAssignment) this.assignment!.nom = this.nomAssignment;
+    if (this.dateDeRendu) this.assignment!.dateDeRendu = this.dateDeRendu;
+    if (this.description) this.assignment!.description = this.description;
+    if (this.matiere) this.assignment!.matiere = this.matiere;
+    if (this.prof) this.assignment!.prof = this.prof;
     this.assignmentsService.updateAssignment(this.assignment!).subscribe((message: any) => {
       console.log(message);
       this.router.navigate(['/home']);
     });
+  }
+
+  getAssignment() {
+    if (!this.assignment) return;
+    this.assignment
+    // Pour pré-remplir le formulaire
+    this.nomAssignment = this.assignment.nom;
+    this.dateDeRendu = this.assignment.dateDeRendu;
+    this.description = this.assignment.description;
+    this.matiere = this.assignment.matiere;
+    this.note = this.assignment.note;
+    this.prof = this.assignment.prof;
   }
 }

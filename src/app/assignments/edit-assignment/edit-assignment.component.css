@@ -1,0 +1,19 @@
+.container {
+    max-width: 600px;
+    margin: 20px;
+  }
+  
+  .form-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px; /* This adds space between your form fields */
+  }
+  
+  .form-field {
+    flex: 1;
+  }
+  
+  .full-width {
+    width: 100%;
+  }
+  

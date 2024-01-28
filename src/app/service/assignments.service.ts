@@ -49,6 +49,10 @@ export class AssignmentsService {
     return this.http.get<Matiere[]>(this.apiUrlMatieres);
   }
 
+  public getMatiere(id: number): Observable<Matiere> {
+    return this.http.get<Matiere>(this.apiUrlMatieres + '/' + id);
+  }
+
   public getRendu(id: number): Observable<Assignment> {
     return this.http.get<Assignment>(this.apiUrl + '/' + id);
   }

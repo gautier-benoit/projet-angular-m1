@@ -9,6 +9,8 @@ import { AssignmentDetailComponent } from './assignment-detail/assignment-detail
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { Router } from '@angular/router';
 import { AddAssignmentComponent } from './add-assignment/add-assignment.component';
+import { get } from 'mongoose';
+import { EditAssignmentComponent } from './edit-assignment/edit-assignment.component';
 
 @Component({
   selector: 'app-assignments',
@@ -88,6 +90,16 @@ export class AssignmentsComponent implements OnInit {
     this.dialog.open(AddAssignmentComponent, {
       width: '600px',
     },);
+    this.getAssignments();
+  }
+
+  editAssignment() {
+    let assignment = this.assignmentSelectionne;
+    this.dialog.open(EditAssignmentComponent, {
+      width: '600px',
+      data: assignment
+    },);
+    this.getAssignments();
   }
 
   assignmentClique(assignment: Assignment) {
@@ -113,9 +125,4 @@ export class AssignmentsComponent implements OnInit {
       this.router.navigate(['/home']);
     });
   }
-
-  editAssignment() {
-    this.router.navigate(['/assignment', this.assignmentSelectionne!._id, 'edit'], {queryParams: {nom: this.assignmentSelectionne?.nom}, fragment: 'edition'});
-  }
-
 }

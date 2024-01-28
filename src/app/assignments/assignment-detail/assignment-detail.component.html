@@ -29,7 +29,7 @@
           <p>Description: {{ assignment.description }}</p>
           <p>Note: {{ assignment.note }}</p>
         </div>
-        <p *ngIf="!assignment.rendu">Non rendu</p>
+        <p *ngIf="!assignment.rendu">En attente</p>
         <p *ngIf="assignment.rendu">Rendu</p>
       </mat-card-content>
       <mat-checkbox *ngIf="!assignment.rendu">
