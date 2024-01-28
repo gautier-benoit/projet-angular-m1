@@ -1,17 +1,39 @@
-<div class="container" *ngIf="assignment">
+<div class="container">
     <h1>Edition de l'assignment {{ assignment.nom }}</h1>
     <form ngForm class="form" #formupdate>
-        <mat-form-field>
-            <input matInput placeholder="Edition du nom" [(ngModel)]="nomAssignment" name="assignment-name" />
+      <div class="form-row">
+        <mat-form-field class="form-field">
+          <mat-label>Nom</mat-label>
+          <input matInput placeholder="Edition du nom" [(ngModel)]="nomAssignment" name="assignment-name" />
         </mat-form-field>
-        <mat-form-field>
-            <input matInput [matDatepicker]="picker" placeholder="Edition de la date" [(ngModel)]="dateDeRendu"
-                name="date" />
-            <mat-datepicker-toggle matSuffix [for]="picker"> </mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
+        
+        <mat-form-field class="form-field">
+          <mat-label>Choisir une date</mat-label>
+          <input matInput [matDatepicker]="picker" placeholder="Edition de la date" [(ngModel)]="dateDeRendu" name="date" />
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
-        <button mat-raised-button color="primary" [disabled]="!nomAssignment || !dateDeRendu">
-            Enregistrer
-        </button>
+      </div>
+  
+      <div class="form-row">
+        <mat-form-field class="form-field">
+          <mat-label>Description</mat-label>
+          <textarea matInput [(ngModel)]="description" name="description" required></textarea>
+        </mat-form-field>
+        
+        <mat-form-field class="form-field">
+          <mat-label>Matière</mat-label>
+          <textarea matInput [(ngModel)]="matiere" name="matiere"></textarea>
+        </mat-form-field>
+      </div>
+  
+      <mat-form-field class="full-width">
+        <mat-label>Professeur</mat-label>
+        <input matInput placeholder="Nom du professeur" [(ngModel)]="prof" name="professeur" [value]="prof"/>
+      </mat-form-field>
+  
+      <button mat-raised-button color="primary" (click)="onSubmit($event)">
+        Enregistrer
+      </button>
     </form>
-</div>
+  </div>  

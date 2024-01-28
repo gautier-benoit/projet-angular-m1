@@ -3,6 +3,7 @@ import { AssignmentsService } from 'src/app/service/assignments.service';
 import { Assignment } from '../assignment.model';
 import { Matiere } from '../matiere.model';
 import { Router } from '@angular/router';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-add-assignment',
@@ -21,7 +22,7 @@ export class AddAssignmentComponent implements OnInit {
 
   ajoutActive: any;
 
-  constructor(private assignmentsService: AssignmentsService, private router: Router) { }
+  constructor(private assignmentsService: AssignmentsService, private router: Router, public dialogRef: MatDialogRef<AddAssignmentComponent>) { }
 
   ngOnInit(): void {
     this.getMatieres();
@@ -37,12 +38,12 @@ export class AddAssignmentComponent implements OnInit {
     newAssignment.rendu = false;
     newAssignment.description = this.description;
     newAssignment.matiere = this.matiere;
-    newAssignment.picture = this.image;
-    newAssignment.prof = this.professeur;
+    newAssignment.picture = this.matieres.find((matiere) => matiere.nom === this.matiere)?.photo;
+    newAssignment.prof = this.matieres.find((matiere) => matiere.nom === this.matiere)?.prof ?? '';
 
     this.assignmentsService.addAssignment(newAssignment).subscribe((message: any) => {
       console.log(message);
-      this.router.navigate(['/home']);
+      this.dialogRef.close();
     });
   }
 
@@ -52,9 +53,16 @@ export class AddAssignmentComponent implements OnInit {
     });
   }
 
-  getDetailMatiereSelect(event: any) {
-    this.professeur = event.value.prof;
-    this.image = event.value.photo;
+  getMatiere(id: number) {
+    this.assignmentsService.getMatiere(id).subscribe((matiere) => {
+      this.image = matiere.photo;
+      this.professeur = matiere.prof;
+    });
   }
 
+  getDetailMatiereSelect(event: any) {
+    let matiere = this.matieres.find((matiere) => matiere.nom === event.value); 
+    this.image = matiere?.photo;
+    this.professeur = matiere?.prof;
+  }
 }
