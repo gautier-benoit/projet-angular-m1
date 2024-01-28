@@ -3,6 +3,7 @@ import { Assignment } from '../assignments/assignment.model';
 import { Observable, of } from 'rxjs';
 import { LoggingService } from '../shared/logging.service';
 import { HttpClient } from '@angular/common/http';
+import { Matiere } from '../assignments/matiere.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,7 @@ import { HttpClient } from '@angular/common/http';
 export class AssignmentsService {
 
   private apiUrl = 'http://localhost:8010/api/assignments';
+  private apiUrlMatieres = 'http://localhost:8010/api/matieres';
   
 
   constructor(private loggingService:LoggingService, private http: HttpClient) { }
@@ -42,12 +44,29 @@ export class AssignmentsService {
     return of("Devoir supprimé par le service");
   }
 */
+
+  public getMatieres(): Observable<Matiere[]> {
+    return this.http.get<Matiere[]>(this.apiUrlMatieres);
+  }
+
+  public getRendu(id: number): Observable<Assignment> {
+    return this.http.get<Assignment>(this.apiUrl + '/' + id);
+  }
+
   public getRendus(): Observable<Assignment[]> {
     return this.http.get<Assignment[]>(this.apiUrl);
   }
+  
+  public addAssignment(assignment: Assignment): Observable<any> {
+    return this.http.post<Assignment>(this.apiUrl, assignment);
+  }
 
-  public deleteAssignment(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`);
+  public updateAssignment(assignment: Assignment): Observable<any> {
+    return this.http.put<Assignment>(this.apiUrl, assignment);
+  }
+
+  public deleteAssignment(assignment: Assignment): Observable<any> {
+    return this.http.delete(this.apiUrl + '/' + assignment._id);
   }
 
 }

@@ -34,6 +34,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { RegisterComponent } from './register/register.component';
+import { MatSelectModule } from '@angular/material/select';
 
 
 const routes: Routes = [
@@ -68,7 +69,8 @@ const routes: Routes = [
     FormsModule, MatDatepickerModule, MatNativeDateModule,
     MatToolbarModule, MatSidenavModule, MatListModule,
     MatCheckboxModule, RouterModule.forRoot(routes), MatSlideToggleModule,
-    HttpClientModule, MatTableModule, MatSortModule, MatPaginatorModule, MatDialogModule
+    HttpClientModule, MatTableModule, MatSortModule, MatPaginatorModule, MatDialogModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

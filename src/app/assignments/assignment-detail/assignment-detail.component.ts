@@ -16,14 +16,26 @@ export class AssignmentDetailComponent implements OnInit {
   /*@Input()*/ assignmentTransmis?:Assignment;
   @Output() assignmentASupprimer = new EventEmitter<Assignment>();
 
-  constructor(@Inject(MAT_DIALOG_DATA) public assignment: any) { }
 
-  // onAssignmentRendu() {
-  //   if(this.assignmentTransmis)
-  //     this.assignmentTransmis.rendu = true;
-  //   //this.assignmentsService.updateAssignment(this.assignmentTransmis!).subscribe(message => console.log(message));
-  //   this.router.navigate(['/home']);
-  // }
+  constructor(@Inject(MAT_DIALOG_DATA) public assignment: any, private assignmentsService: AssignmentsService, private router: Router) { }
+
+  onAssignmentRendu() {
+    if(this.assignmentTransmis)
+      this.assignmentTransmis.rendu = true;
+    
+    this.assignmentsService.updateAssignment(this.assignmentTransmis!).subscribe((message: any) => {
+      console.log(message);
+      this.router.navigate(['/home']);
+    });
+  }
+
+  onDelete() {
+    this.assignmentsService.deleteAssignment(this.assignmentTransmis!).subscribe((message: any) => {
+      console.log(message);
+      this.router.navigate(['/home']);
+    });
+    // this.assignmentTransmis = undefined;
+  }
   
   ngOnInit(): void {
     console.log("Assignment reçu dans le détail : ", this.assignment);
@@ -50,29 +62,21 @@ export class AssignmentDetailComponent implements OnInit {
   // isAdmin(): boolean {
   //   return this.authService.isAdmin();
   // }
-
-/** Méthodes de l'ancien assignment-detail.component.ts vu en TD
  
-  getAssignment(): void {
-    // On récupère l'id dans le snapshot passé par le routeur
-    // Le + devant permet de caster la chaine de caractères en nombre
-    const id = +this.route.snapshot.params['id'];
-    this.assignmentsService.getAssignment(id).subscribe(assignment => this.assignmentTransmis = assignment);
-  }
+  // getAssignment(): void {
+  //   // On récupère l'id dans le snapshot passé par le routeur
+  //   // Le + devant permet de caster la chaine de caractères en nombre
+  //   const id = +this.route.snapshot.params['id'];
+  //   this.assignmentsService.getAssignment(id).subscribe(assignment => this.assignmentTransmis = assignment);
+  // }
 
-  onClickEdit() {
-    this.router.navigate(['/assignment', this.assignmentTransmis?.id, 'edit'], {queryParams: {nom: this.assignmentTransmis?.nom}, fragment: 'edition'});
-  }
+  // onClickEdit() {
+  //   this.router.navigate(['/assignment', this.assignmentTransmis?.id, 'edit'], {queryParams: {nom: this.assignmentTransmis?.nom}, fragment: 'edition'});
+  // }
 
-  onDelete() {
-    this.assignmentsService.deleteAssignment(this.assignmentTransmis!).subscribe(message => console.log(message));
-    // this.assignmentTransmis = undefined;
-    this.router.navigate(['/home']);
-  }
 
-  isAdministrator(): boolean {
-    return this.authService.isAdmin();
-  }
+  // isAdministrator(): boolean {
+  //   return this.authService.isAdmin();
+  // }
   
-*/
 }

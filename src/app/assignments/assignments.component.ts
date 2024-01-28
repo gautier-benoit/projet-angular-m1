@@ -3,10 +3,12 @@ import { Assignment } from './assignment.model';
 import { AssignmentsService } from '../service/assignments.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import {  MatPaginator, MatPaginatorModule  } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { AssignmentDetailComponent } from './assignment-detail/assignment-detail.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { Router } from '@angular/router';
+import { AddAssignmentComponent } from './add-assignment/add-assignment.component';
 
 @Component({
   selector: 'app-assignments',
@@ -21,14 +23,14 @@ export class AssignmentsComponent implements OnInit {
   boutonDesactive = true;
   nomDevoir = ""
   dateDeRendu?: Date = undefined;
-  assignmentSelectionne!: Assignment;
+  assignmentSelectionne?: Assignment;
   formVisible = false;
   assignments: Assignment[] = [];
   rendus: Assignment[] = [];
   dataSource = new MatTableDataSource(this.rendus);
   displayedColumns: string[] = ['nom', 'matiere', 'dateDeRendu', 'rendu', 'actions'];
   isCompleted = false;
-  constructor(private assignmentsService: AssignmentsService, public dialog: MatDialog) { }
+  constructor(private assignmentsService: AssignmentsService, public dialog: MatDialog, private router: Router) { }
 
   @ViewChild('eventsSort') eventsSort = new MatSort();
   @ViewChild(MatPaginator) paginator !: MatPaginator;
@@ -38,7 +40,7 @@ export class AssignmentsComponent implements OnInit {
     console.log(" AVANT RENDU DE LA PAGE !");
     setTimeout(() => {
       this.ajoutActive = true;
-    }, 2000) 
+    }, 2000)
   }
 
   ngAfterViewInit() {
@@ -80,40 +82,19 @@ export class AssignmentsComponent implements OnInit {
       width: '600px',
       data: rendu
     },);
-    }
-      /**
-    assignmentClique(assignment:Assignment) {
-      console.log("Assignment cliqué : " + assignment.nom);
-      this.assignmentSelectionne = assignment;
-    }
-  
-    onAddAssignmentBtnClick() {
-      //this.formVisible = true;
-    }
-    
-    getAssignments() {
-      this.assignmentsService.getAssignments().subscribe(assignments => this.assignments = assignments);
-    }
-  
-    // onNouvelAssignment(event:Assignment) {
-    //   //this.assignments.push(event);
-    //   this.assignmentsService.addAssignment(event).subscribe(message => console.log(message));
-    //   this.formVisible = false;
-    // }
-    */
+  }
 
+  viewAddAssignment() {
+    this.dialog.open(AddAssignmentComponent, {
+      width: '600px',
+    },);
+  }
 
-/**
-  assignmentClique(assignment:Assignment) {
+  assignmentClique(assignment: Assignment) {
     console.log("Assignment cliqué : " + assignment.nom);
     this.assignmentSelectionne = assignment;
   }
 
-  onAddAssignmentBtnClick() {
-    //this.formVisible = true;
-  }
-  */
-  
   getAssignments() {
     this.assignmentsService.getRendus().subscribe((assignments) => {
       if (this.isCompleted) {
@@ -125,15 +106,16 @@ export class AssignmentsComponent implements OnInit {
     });
   }
 
-  deleteAssignment(assignment: Assignment) {
-    this.assignmentsService.deleteAssignment(assignment.id).subscribe(() => {
+  deleteAssignment() {
+    this.assignmentsService.deleteAssignment(this.assignmentSelectionne!).subscribe((message) => {
+      console.log(message);
       this.getAssignments();
+      this.router.navigate(['/home']);
     });
   }
 
-  // onNouvelAssignment(event:Assignment) {
-  //   //this.assignments.push(event);
-  //   this.assignmentsService.addAssignment(event).subscribe(message => console.log(message));
-  //   this.formVisible = false;
-  // }
+  editAssignment() {
+    this.router.navigate(['/assignment', this.assignmentSelectionne!._id, 'edit'], {queryParams: {nom: this.assignmentSelectionne?.nom}, fragment: 'edition'});
+  }
+
 }
