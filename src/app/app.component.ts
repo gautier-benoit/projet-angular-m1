@@ -21,8 +21,20 @@ export class AppComponent {
       if (!isLoggedIn) {
         this.router.navigate(['/login']);
       } else {
-        this.authService.logOut();
         this.router.navigate(['/home']);
+        this.authService.logOut();
+      }
+    });
+  }
+
+  logout() {
+    this.authService.isLoggedIn().subscribe((isLoggedIn) => {
+      console.log('isLoggedIn', isLoggedIn);
+      if (!isLoggedIn) {
+        this.router.navigate(['/login']);
+      } else {
+        this.authService.logOut();
+        this.router.navigate(['/login']);
       }
     });
   }
