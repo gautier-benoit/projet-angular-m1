@@ -1,16 +1,40 @@
 <h3>Ajout devoirs</h3>
 <form ngForm (submit)="onSubmit($event); assignmentForm.reset()" #assignmentForm class="form">
     <mat-form-field>
-        <mat-label> Nom : </mat-label>
-        <input matInput placeholder="Nom du devoir" [(ngModel)]="nomDevoir" name="nom" />
+        <mat-label>Nom</mat-label>
+        <input matInput placeholder="Nom du devoir" [(ngModel)]="nomDevoir" name="nom" required/>
     </mat-form-field>
 
     <mat-form-field>
-        <mat-label>Choose a date</mat-label>
-        <input matInput [matDatepicker]="picker" [(ngModel)]="dateDeRendu" name="date">
+        <mat-label>Choisir une date</mat-label>
+        <input matInput [matDatepicker]="picker" [(ngModel)]="dateDeRendu" name="date" />
         <mat-hint>MM/DD/YYYY</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Description</mat-label>
+        <textarea matInput [(ngModel)]="description" name="description" required></textarea>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Matière</mat-label>
+        <mat-select [(ngModel)]="matiere" name="matiere" required (selectionChange)="getDetailMatiereSelect($event)">
+            <mat-option *ngFor="let m of matieres" [value]="m.nom">{{ m.nom }}</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Professeur</mat-label>
+        <input matInput placeholder="Nom du professeur" [(ngModel)]="professeur" name="professeur" [value]="professeur"/>
+    </mat-form-field>
+
+    <!-- <div class="head-right">
+        <div *ngIf="assignment.picture" class="img">
+            <img mat-card-avatar [src]="assignment.picture" />
+        </div>
+    </div> -->
+
     <button mat-stroked-button color="primary">Ajouter devoir</button>
 </form>
