@@ -9,7 +9,7 @@ import { AccessType, Users } from './user.model';
 export class AuthService {
   private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private currentUser: { login: string; password: string; role: string; } | null = null;
-  url = "http://localhost:8010/api";
+  url = "https://ent-loze-benoit-projet-angular.onrender.com/api";
 
   private users: { login: string; password: string; role: string; }[] = [];
 
