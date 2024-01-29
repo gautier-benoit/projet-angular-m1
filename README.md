@@ -4,10 +4,10 @@ Angular project of Master 1 MIAGE - Web application of assignments developed by 
 
 ## Installation
 
-Cloner ce dépot sur votre machine.
-Cloner l'api (lien ci-dessous) sur votre machine, même dossier que ce dépot.
-Run `npm install` to install all dependencies.
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- Cloner ce dépot sur votre machine.
+- Cloner l'api (lien ci-dessous) sur votre machine, même dossier que ce dépot.
+- Run `npm install` to install all dependencies.
+- Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
 ## Divers
 
@@ -15,7 +15,9 @@ Lien de la vidéo de démonstration :
 
 Version node : 16
 
-Lien vers l'API : https://github.com/gautier-benoit/projet-angular-api-m1.git
+Lien vers le repository de l'API : https://github.com/gautier-benoit/projet-angular-api-m1.git
+
+Lien du back sur Render.com : https://ent-loze-benoit-projet-angular.onrender.com/api/assignments/
 
 ## Fonctionnalités disponibles
 
