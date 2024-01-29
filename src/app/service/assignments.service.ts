@@ -10,8 +10,8 @@ import { Matiere } from '../assignments/matiere.model';
 })
 export class AssignmentsService {
 
-  private apiUrl = 'http://localhost:8010/api/assignments';
-  private apiUrlMatieres = 'http://localhost:8010/api/matieres';
+  private apiUrl = 'https://ent-loze-benoit-projet-angular.onrender.com/api/assignments/';
+  private apiUrlMatieres = 'https://ent-loze-benoit-projet-angular.onrender.com/api/matieres/';
   
 
   constructor(private loggingService:LoggingService, private http: HttpClient) { }
