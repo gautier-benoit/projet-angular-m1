@@ -13,11 +13,13 @@ Angular project of Master 1 MIAGE - Web application of assignments developed by 
 
 Lien de la vidéo de démonstration :
 
-Version node : 16
+Version node : 18.19
 
 Lien vers le repository de l'API : https://github.com/gautier-benoit/projet-angular-api-m1.git
 
-Lien du back sur Render.com : https://ent-loze-benoit-projet-angular.onrender.com/api/assignments/
+Lien du front sur Render.com : https://loze-benoit-projet-angular-m1.onrender.com/
+
+Lien du back sur Render.com : https://ent-loze-benoit-projet-angular.onrender.com/api/assignments/ ou https://ent-loze-benoit-projet-angular.onrender.com/api/matieres/
 
 ## Fonctionnalités disponibles
 
