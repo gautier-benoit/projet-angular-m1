@@ -11,7 +11,7 @@ Angular project of Master 1 MIAGE - Web application of assignments developed by 
 
 ## Divers
 
-Lien de la vidéo de démonstration :
+Lien de la vidéo de démonstration : https://youtu.be/mrCmZfXFG1o
 
 Version node : 18.19
 
